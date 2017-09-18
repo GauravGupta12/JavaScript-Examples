@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="root-container">
+        <div class="header">
+            <button id="reverse">
+                REVERSE
+            </button>
+            <button id="remove-symbols-numbers">
+                REMOVE SYMBOLS & NUMBERS
+            </button>
+            <button id="sort-alphabetically">
+                SORT ALPHABETICALLLY
+            </button>
+            <button class="toggle-Color">
+                TOGGLE COLOR
+            </button>
+            <button class="random-color">
+                RANDOM COLOR
+            </button>
+            <button class="convert-to-inline">
+                CONVERT TO INLINE
+            </button>
+
+        </div>
+        <div class="main">
+            <div class="startups-container">
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    .root-container {
+        position: relative;
+    }
+
+        .root-container .header {
+            position: relative;
+        }
+
+        .root-container .main {
+            position: relative;
+        }
+
+        .root-container .footer {
+            position: relative;
+        }
+
+    .startups-container {
+        background-color: gray;
+    }
+
+    .red {
+        background-image: red;
+        background-color:red;
+    }
+
+    .blue {
+        background-image: blue;
+        background-color:blue;
+    }
+
+    .gold {
+        background-image: gold;
+        background-color: gold;
+    }
+
+    .backgroundColor{
+        background-color: greenyellow;
+    }
+</style>
+<script>
+    var colors = ['red', 'blue', 'gold'];
+    var chicagoStartupsHTML = [];
+    var chicagoStartups = [
+        '  Interior   Define  ',
+        'Classkick',
+        'teaBOT  .$',
+        'Pritzker Group Venture Capital',
+        'Teln!yx !!',
+        'ShipBob ~~$$$',
+        'Hologram',
+        'Tovala    ',
+        '    MANOR',
+        'ShuttleCloud 999987',
+        'gtrot @@@@@',
+        'DealsGoRound ****',
+        ' Groovebug',
+        'Stage$$$Bloc',
+        'Shiftgig',
+        'ParkWhiz'
+    ];
+    $(document).ready(function () {
+        var sortOrderAtoZ = false;
+
+        $.each(chicagoStartups, function (index, startupName) {
+            chicagoStartupsHTML.push('<div>' + startupName + '</div>');
+        });
+        $(".startups-container").html(chicagoStartupsHTML.join(""));
+
+        $('.convert-to-inline').bind('click', function () {
+            var inlineStr = "";
+            $.each(chicagoStartups, function (idx, item) {
+                item = item.replace(/[^A-Za-z]/gi, '');
+                inlineStr = inlineStr + item + ", ";
+            });
+            $(".startups-container").html(inlineStr.substr(0,inlineStr.length-2));
+        });
+
+        $('.random-color').bind('click', function () {            
+            var randomNum = Math.random();
+            if (randomNum <= 0.33) {
+                $('.startups-container').toggleClass("red");
+            }
+            else if (randomNum > 0.33 && randomNum <= 0.66) {
+                $('.startups-container').toggleClass("blue");
+            }
+            else if (randomNum > 0.66) {
+                $('.startups-container').toggleClass("gold");
+            }
+        });
+
+        $('.toggle-Color').bind('click', function () {
+            $('.startups-container').toggleClass("backgroundColor");
+        });
+
+        $('#sort-alphabetically').bind('click', function () {
+            temp = [];
+            $.each(chicagoStartups, function (index, startupName) {
+                startupName = startupName.replace(/^\s+/,'')
+                temp.push(startupName.replace(/[^A-Za-z\s]+/gi, ''));
+            });
+            
+            temp.sort(function (a, b) {
+                console.log(a);
+                console.log(b);
+                console.log("----------------------------");
+                return ($(a).text()) > ($(b).text());
+            })
+            
+            temp.sort();
+
+
+            chicagoStartupsHTML.length = 0;
+            $.each(temp, function (index, startupName) {
+                chicagoStartupsHTML.push('<div>' + startupName + '</div>');
+            });
+            $(".startups-container").html(chicagoStartupsHTML.join(""));
+        });
+
+        $('#remove-symbols-numbers').bind('click', function () {
+
+            chicagoStartupsHTML.length = 0;
+            $.each(chicagoStartups, function (index, startupName) {
+                startupName = startupName.replace(/[^A-Za-z\s]/gi, '');
+                chicagoStartupsHTML.push('<div>' + startupName + '</div>');
+            });
+            $(".startups-container").html(chicagoStartupsHTML.join(""));
+        });
+
+        $('#reverse').bind('click', function () {
+            //alert('hello');
+            chicagoStartups.reverse();
+            chicagoStartupsHTML.length = 0;
+            $.each(chicagoStartups, function (index, startupName) {
+                chicagoStartupsHTML.push('<div>' + startupName + '</div>');
+            });
+            $(".startups-container").html(chicagoStartupsHTML.join(""));
+        });
+
+    });
+
+    //HOMEWORK 1 PROBLEMS START
+    // 1.CREATE A FUNCTION THAT REVERSES THE LIST OF STARTUPS ON CLICK OF THE REVERSE BUTTON
+    // 2.CREATE A FUNCTION THAT REMOVES ALL SYMBOLS AND NUMBERS FROM COMPANY NAMES ON CLICK OF REMOVE SYMBOLS & NUMBERS BUTTON
+    //   Stage$$$Bloc => StageBloc
+    // 3.CREATE A FUNCTION THAT SORTS STARTUPS IN ALPHABETICAL ORDER ON CLICK OF THE SORT BUTTON
+    // 4.CREATE A FUNCTION THAT TOGGLES THE BACKGROUND COLOR UPON CLICK OF THE TOGGLE COLOR BUTTON
+    // 5.CREATE A FUNCTION THAT RANDOMLY SELECTS A COLOR CLASS AND APPLIES IT TO EACH COMPANY NAME WHEN THE COLOR BUTTON IS CLICKED
+    // 6.CREATE A FUNCTION THAT DISPLAYS STARTS AS INLINE ELEMENTS ON CLICK OF CONVERT TO INLINE BUTTON
+    //HOMEWORK 1 PROBLEMS END
+
+</script>
