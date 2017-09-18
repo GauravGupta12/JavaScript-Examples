@@ -138,15 +138,7 @@
                 temp.push(startupName.replace(/[^A-Za-z\s]+/gi, ''));
             });
             
-            temp.sort(function (a, b) {
-                console.log(a);
-                console.log(b);
-                console.log("----------------------------");
-                return ($(a).text()) > ($(b).text());
-            })
-            
             temp.sort();
-
 
             chicagoStartupsHTML.length = 0;
             $.each(temp, function (index, startupName) {
